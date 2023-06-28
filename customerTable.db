@@ -1,0 +1,15 @@
+SELECT
+  sample.customerId,
+  name,
+  GROUP_CONCAT(subjectName, ',') AS subjects
+FROM
+  (
+    CUSTOMERS
+    INNER JOIN subject_student_mapping ON customers.customerId = subject_student_mapping.customerId
+  ) AS sample
+  INNER JOIN subjects ON sample.subjectId = subjects.subjectId
+GROUP BY
+  sample.customerId
+ORDER BY
+  sample.customerId ASC,
+  subjectName ASC;
